@@ -32,26 +32,15 @@ router.get('/:id', async (req, res) => {
       return;
     }
 
-    res.status(200).json(product);
+    res.status(200).json(product); 
   }
   catch(err){
-    res.status(500).json(err);
+    res.status(500).json(err); 
   }
 });
 
-
-// TODO: FINISH DEBUGGING
 // create new product
 router.post('/', async (req, res) => {
-  
-  try { 
-    const product = await Product.create(req.body);
-    res.status(200).json(product);
-   }
-  catch (err) {
-    res.status(500).json(err);
-  }
-  
   
   /* req.body should look like this...
     {
@@ -125,8 +114,32 @@ router.put('/:id', (req, res) => {
     });
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
   // delete one product by its `id` value
+  try{
+    // Checks that the id exists
+    const product = await Product.findByPk(req.params.id);
+    if (!product) {
+      res.status(404).json({ message: 'No product found with this id!' });
+      return;
+    }
+
+    // remove associated tags from product
+    await ProductTag.destroy({
+      where: {
+        product_id: req.params.id
+      }
+    });
+    // deletes the selected product from id.
+    await product.destroy();
+
+
+    res.status(200).json({ message: 'Product deleted!'});
+  }
+  catch(err) {
+    res.status(500).json(err);
+  }
+
 });
 
 module.exports = router;
