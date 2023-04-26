@@ -93,6 +93,6 @@ Here is a video recording of the program execution:
 
 <br/>
 
-[Video Walkthrough](assets/Untitled_%20Apr%2014,%202023%209_16%20PM.mp4)
+[Walkthrough Video](assets/ORMeus%20walkthrough.mp4)
 
 [Deployed Github Page](https://github.com/Rbustan0/ORMius)

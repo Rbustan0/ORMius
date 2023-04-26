@@ -39,7 +39,6 @@ Product.init(
      references: {
       model: 'category',
       key: 'id',
-      // adding this might take out later
       onDelete: 'CASCADE'
      }
     }

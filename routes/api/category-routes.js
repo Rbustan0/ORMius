@@ -5,6 +5,7 @@ const { Category, Product } = require('../../models');
 
 // Going to include try/catch block to handle errors
 
+
 router.get('/', async (req, res) => {
   try {
     const categories = await Category.findAll({
@@ -22,18 +23,19 @@ router.get('/:id', async (req, res) => {
     const category = await Category.findByPk(req.params.id, {
       include: [{ model: Product }]
     });
-
+    
     if (!category) {
       res.status(404).json({ message: 'No category found with this id!' });
       return;
     }
-
+    
     res.status(200).json(category);
   }
   catch (err) {
     res.status(500).json(err);
   }
 });
+
 
 router.post('/', async (req, res) => {
   try {
@@ -44,6 +46,8 @@ router.post('/', async (req, res) => {
     res.status(500).json(err);
   }
 });
+
+
 
 router.put('/:id', async (req, res) => {
   try {
@@ -65,6 +69,7 @@ router.put('/:id', async (req, res) => {
   }
 
 });
+
 
 router.delete('/:id', async (req, res) => {
   try {
